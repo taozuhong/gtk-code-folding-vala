@@ -1,0 +1,216 @@
+{
+    "app-id" : "org.gnome.GtkCodeFoldingVala",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "master",
+    "branch" : "master",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "gtk-code-folding",
+    "tags" : [
+        "nightly"
+    ],
+    "desktop-file-name-prefix" : "(Nightly) ",
+    "finish-args" : [
+        "--share=ipc",
+        "--share=network",
+        "--socket=x11",
+        "--socket=wayland",
+        "--socket=ssh-auth",
+        "--filesystem=host",
+        "--filesystem=xdg-run/dconf",
+        "--filesystem=~/.config/dconf:ro",
+        "--talk-name=ca.desrt.dconf",
+        "--talk-name=org.gtk.vfs.*",
+        "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
+        "--talk-name=org.freedesktop.secrets",
+        "--filesystem=xdg-run/keyring"
+    ],
+    "cleanup" : [
+        "/include",
+        "/lib/pkgconfig",
+        "/share/pkgconfig",
+        "/share/aclocal",
+        "/man",
+        "/share/man",
+        "/share/gtk-doc",
+        "/share/vala",
+        "*.la",
+        "*.a"
+    ],
+    "modules" : [
+        {
+            "name" : "gtksourceview",
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/gtksourceview.git"
+                }
+            ]
+       },
+       {
+            "name" : "gtk-code-folding-vala",
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/albfan/gtk-code-folding-vala"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/JuliaStrings/utf8proc/archive/v2.4.0.tar.gz",
+                    "sha256" : "b2e5d547c1d94762a6d03a7e05cea46092aab68636460ff8648f1295e2cdfbd7",
+                    "dest-filename" : "utf8proc.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter/archive/0.15.7.tar.gz",
+                    "sha256" : "459e69606d396ffc92492b8cbbeb2ced2153f005b87be370f6b42fd412b527fe",
+                    "dest-filename" : "tree-sitter-runtime.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "path" : "0001-fix-tree-sitter-vapi.patch",
+                    "sha256" : "86a78277f3407d819e8386ec0571b485b43e232e6b777f01bd6c16d2c6ae3adc"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-c/archive/v0.15.2.tar.gz",
+                    "sha256" : "ffbc8ebb09a4730c0853e4cfc9803e20486922bef8e07b0bced31e7d484ac6d3",
+                    "dest-filename" : "tree-sitter-c.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-json/archive/v0.14.0.tar.gz",
+                    "sha256" : "431fed994cafe511fd2efbb0208e618c832ff65aa15882c40bdb6bca2f174038",
+                    "dest-filename" : "tree-sitter-json.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-python/archive/v0.15.0.tar.gz",
+                    "sha256" : "9298fddb63f0ba4e8930a25fcfff1af84e1edadadb7ad20bcf1930fbddbafed5",
+                    "dest-filename" : "tree-sitter-python.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-java/archive/master.tar.gz",
+                    "sha256" : "5d9b786f65fe999a2d5ab9d90d5073e55edaafe35cd4d0843b7d8ac0ceb7c70a",
+                    "dest-filename" : "tree-sitter-java.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-php/archive/v0.13.1.tar.gz",
+                    "sha256" : "1095ff6ba52fd15d61f932fc1203035c10a1686a6f6a950f1411e2fed5e4b236",
+                    "dest-filename" : "tree-sitter-php.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-bash/archive/v0.16.0.tar.gz",
+                    "sha256" : "5694e19dc389aba12add7b610bb318f51965cd2e0945d768dfcb0feb91150555",
+                    "dest-filename" : "tree-sitter-bash.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-cpp/archive/v0.15.0.tar.gz",
+                    "sha256" : "428ad9712b5e5e706eb39359e2f83f3a74f98285ec4f9719c0810e86574d1f14",
+                    "dest-filename" : "tree-sitter-cpp.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-css/archive/master.tar.gz",
+                    "sha256" : "01837a73f8c54ae0e26164849403f93bf8eff2a17fc16c5e5304ef3c0141105d",
+                    "dest-filename" : "tree-sitter-css.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-go/archive/v0.15.0.tar.gz",
+                    "sha256" : "151a75cd5030f2ce9e571f4c7c0f6e21a8acf64d53a7c29ea583bf03118a0cd3",
+                    "dest-filename" : "tree-sitter-go.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-haskell/archive/master.tar.gz",
+                    "sha256" : "01837a73f8c54ae0e26164849403f93bf8eff2a17fc16c5e5304ef3c0141105d",
+                    "dest-filename" : "tree-sitter-haskell.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-html/archive/v0.15.0.tar.gz",
+                    "sha256" : "ac83de974a56565bbb976bea8d2ca578ece4a77a95012c63ad5145787bbe349e",
+                    "dest-filename" : "tree-sitter-html.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-javascript/archive/v0.15.1.tar.gz",
+                    "sha256" : "9a64bb3b440f066568e6e531d144fe9259cc3f6afb30ad912ca2ff26a43ade24",
+                    "dest-filename" : "tree-sitter-javascript.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-ruby/archive/v0.15.2.tar.gz",
+                    "sha256" : "ac8cadc856f36674ca7f125ee6b5a25004db0c1ca6c9e2577065e3d73c4ddb44",
+                    "dest-filename" : "tree-sitter-ruby.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-rust/archive/v0.15.1.tar.gz",
+                    "sha256" : "61e4560f9db17a46861bec8c4bc385372b9da4aec5dce7e9948de84adafe5f8a",
+                    "dest-filename" : "tree-sitter-rust.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-scala/archive/master.tar.gz",
+                    "sha256" : "c0fe22357a738cb5dc19c4fc061616064013ba64cf4a1413c32333fb1f01975e",
+                    "dest-filename" : "tree-sitter-scala.tar.gz"
+                },
+                {
+                    "type" : "file",
+                    "url" : "https://github.com/tree-sitter/tree-sitter-typescript/archive/v0.15.1.tar.gz",
+                    "sha256" : "e50d3447babe5436fa7a712b45af04b123c0edf4f8795c615512662444cd8e3e",
+                    "dest-filename" : "tree-sitter-typescript.tar.gz"
+                },
+                {
+                    "type" : "shell",
+                    "commands" : [
+                       "mkdir -p vendor/tree-sitter",
+                       "tar xz --strip-components=1 -f tree-sitter-runtime.tar.gz -C vendor/tree-sitter",
+                       "patch -d vendor/tree-sitter/ -p1 < 0001-fix-tree-sitter-vapi.patch",
+                       "tar xz --strip-components=1 -f utf8proc.tar.gz -C vendor/tree-sitter/lib/utf8proc",
+                       "mkdir -p fixtures/tree-sitter-typescript",
+                       "tar xz --strip-components=1 -f tree-sitter-typescript.tar.gz -C fixtures/tree-sitter-typescript",
+                       "mkdir fixtures/tree-sitter-scala",
+                       "tar xz --strip-components=1 -f tree-sitter-scala.tar.gz -C fixtures/tree-sitter-scala",
+                       "mkdir fixtures/tree-sitter-rust",
+                       "tar xz --strip-components=1 -f tree-sitter-rust.tar.gz -C fixtures/tree-sitter-rust",
+                       "mkdir fixtures/tree-sitter-ruby",
+                       "tar xz --strip-components=1 -f tree-sitter-ruby.tar.gz -C fixtures/tree-sitter-ruby",
+                       "mkdir fixtures/tree-sitter-javascript",
+                       "tar xz --strip-components=1 -f tree-sitter-javascript.tar.gz -C fixtures/tree-sitter-javascript",
+                       "mkdir fixtures/tree-sitter-html",
+                       "tar xz --strip-components=1 -f tree-sitter-html.tar.gz -C fixtures/tree-sitter-html",
+                       "mkdir fixtures/tree-sitter-haskell",
+                       "tar xz --strip-components=1 -f tree-sitter-haskell.tar.gz -C fixtures/tree-sitter-haskell",
+                       "mkdir fixtures/tree-sitter-go",
+                       "tar xz --strip-components=1 -f tree-sitter-go.tar.gz -C fixtures/tree-sitter-go",
+                       "mkdir fixtures/tree-sitter-css",
+                       "tar xz --strip-components=1 -f tree-sitter-css.tar.gz -C fixtures/tree-sitter-css",
+                       "mkdir fixtures/tree-sitter-cpp",
+                       "tar xz --strip-components=1 -f tree-sitter-cpp.tar.gz -C fixtures/tree-sitter-cpp",
+                       "mkdir fixtures/tree-sitter-bash",
+                       "tar xz --strip-components=1 -f tree-sitter-bash.tar.gz -C fixtures/tree-sitter-bash",
+                       "mkdir fixtures/tree-sitter-php",
+                       "tar xz --strip-components=1 -f tree-sitter-php.tar.gz -C fixtures/tree-sitter-php",
+                       "mkdir fixtures/tree-sitter-java",
+                       "tar xz --strip-components=1 -f tree-sitter-java.tar.gz -C fixtures/tree-sitter-java",
+                       "mkdir fixtures/tree-sitter-python",
+                       "tar xz --strip-components=1 -f tree-sitter-python.tar.gz -C fixtures/tree-sitter-python",
+                       "mkdir fixtures/tree-sitter-json",
+                       "tar xz --strip-components=1 -f tree-sitter-json.tar.gz -C fixtures/tree-sitter-json",
+                       "mkdir fixtures/tree-sitter-c",
+                       "tar xz --strip-components=1 -f tree-sitter-c.tar.gz -C fixtures/tree-sitter-c"
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,50 @@
+From ac078a8325c65ee7ac16de32a9cb96231f8f49eb Mon Sep 17 00:00:00 2001
+From: Alberto Fanjul <albertofanjul@gmail.com>
+Date: Fri, 9 Aug 2019 20:37:37 +0200
+Subject: [PATCH] fix vapi
+
+---
+ lib/include/tree_sitter/api.h | 2 +-
+ lib/src/tree_cursor.c         | 7 +++++--
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/lib/include/tree_sitter/api.h b/lib/include/tree_sitter/api.h
+index 9375db8b..d0c9fc8f 100644
+--- a/lib/include/tree_sitter/api.h
++++ b/lib/include/tree_sitter/api.h
+@@ -534,7 +534,7 @@ bool ts_node_eq(TSNode, TSNode);
+  * possible using the `TSNode` functions. It is a mutable object that is always
+  * on a certain syntax node, and can be moved imperatively to different nodes.
+  */
+-TSTreeCursor ts_tree_cursor_new(TSNode);
++TSTreeCursor *ts_tree_cursor_new(TSNode);
+ 
+ /**
+  * Delete a tree cursor, freeing all of the memory that it used.
+diff --git a/lib/src/tree_cursor.c b/lib/src/tree_cursor.c
+index 7103fc41..afcfa32f 100644
+--- a/lib/src/tree_cursor.c
++++ b/lib/src/tree_cursor.c
+@@ -65,14 +65,17 @@ static inline bool ts_tree_cursor_child_iterator_next(CursorChildIterator *self,
+ 
+ // TSTreeCursor - lifecycle
+ 
+-TSTreeCursor ts_tree_cursor_new(TSNode node) {
++TSTreeCursor *ts_tree_cursor_new(TSNode node) {
+   TSTreeCursor self = {NULL, NULL, {0, 0}};
++  size_t sz = sizeof(TSTreeCursor);
++  void *mem = calloc(1, sz);
+   ts_tree_cursor_init((TreeCursor *)&self, node);
+-  return self;
++  return mem ? memcpy(mem, &self, sz) : NULL;
+ }
+ 
+ void ts_tree_cursor_reset(TSTreeCursor *_self, TSNode node) {
+   ts_tree_cursor_init((TreeCursor *)_self, node);
++  free(_self);
+ }
+ 
+ void ts_tree_cursor_init(TreeCursor *self, TSNode node) {
+-- 
+2.22.0
+

@@ -1,0 +1,60 @@
+#!/bin/bash
+
+function checkout_external() {
+  PACKAGE=$1
+  TAG=$2
+  GIT_USER=$3
+  REPO=https://github.com/$GIT_USER/
+
+  PROJECT=tree-sitter-$PACKAGE
+  FILE=$TAG.tar.gz
+  echo -e "\tfetching $PROJECT version $TAG"
+  wget -qc $REPO/$PROJECT/archive/$FILE
+  mkdir $PROJECT
+  echo -e "\t...extracting"
+  tar xzf $FILE --strip-components=1 -C $PROJECT
+  rm $FILE
+  echo -e "\tdone"
+}
+
+function checkout() {
+  PACKAGE=$1
+  TAG=$2
+  checkout_external $PACKAGE $TAG tree-sitter
+}
+
+rm -rf vendor/*
+rm -rf fixtures/*
+
+cd vendor
+echo fetching runtime
+#checkout "" 0.15.7
+#We need submodule utf8proc
+#git clone -qb 0.15.7 --recurse-submodules https://github.com/tree-sitter/tree-sitter
+git clone -qb vala-binding2 --recurse-submodules https://github.com/albfan/tree-sitter
+cd ..
+cd fixtures
+echo fetching fixtures
+
+checkout c v0.15.2
+checkout json v0.14.0
+checkout python v0.15.0
+#checkout java v0.13.0
+#checkout java v0.15.0
+checkout php v0.13.1
+checkout bash v0.16.0
+checkout cpp v0.15.0
+#checkout css v0.13.7
+#checkout css v0.15.0
+checkout go v0.15.0
+#checkout haskell v0.13.0
+#checkout haskell master
+checkout html v0.15.0
+checkout javascript v0.15.1
+checkout ruby v0.15.2
+checkout rust v0.15.1
+#checkout scala v0.13.0
+#checkout scala v0.15.0
+checkout typescript v0.15.1
+checkout_external xml master unhammer
+
