@@ -41,8 +41,7 @@ tree_sitter_vapi = meson.get_compiler('vala').find_library('libtreesitter',
 
 tree_sitter_dep = declare_dependency(
 	link_with: tree_sitter_lib,
-	include_directories: include_directories(join_paths('vendor', 'tree-sitter',
-                                                       'lib', 'include')),
+	include_directories: include_directories(join_paths('vendor', 'tree-sitter', 'lib', 'include')),
 	dependencies: tree_sitter_vapi,
 )
 

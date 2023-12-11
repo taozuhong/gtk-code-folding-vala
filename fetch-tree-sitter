@@ -31,7 +31,11 @@ echo fetching runtime
 #checkout "" 0.15.7
 #We need submodule utf8proc
 #git clone -qb 0.15.7 --recurse-submodules https://github.com/tree-sitter/tree-sitter
-git clone -qb vala-binding2 --recurse-submodules https://github.com/albfan/tree-sitter
+#git clone -qb vala-binding --recurse-submodules https://github.com/albfan/tree-sitter
+#checkout_external tree-sitter 0.15.2 tree-sitter ""
+git clone -b 0.15.2 --recurse-submodules https://github.com/tree-sitter/tree-sitter
+git apply ../../0001-fix-tree-sitter-vapi.patch
+
 cd ..
 cd fixtures
 echo fetching fixtures
