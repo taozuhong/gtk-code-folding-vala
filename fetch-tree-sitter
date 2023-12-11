@@ -4,9 +4,10 @@ function checkout_external() {
   PACKAGE=$1
   TAG=$2
   GIT_USER=$3
+  PREFIX=$4
   REPO=https://github.com/$GIT_USER/
 
-  PROJECT=tree-sitter-$PACKAGE
+  PROJECT=$PREFIX$PACKAGE
   FILE=$TAG.tar.gz
   echo -e "\tfetching $PROJECT version $TAG"
   wget -qc $REPO/$PROJECT/archive/$FILE
@@ -20,7 +21,7 @@ function checkout_external() {
 function checkout() {
   PACKAGE=$1
   TAG=$2
-  checkout_external $PACKAGE $TAG tree-sitter
+  checkout_external $PACKAGE $TAG tree-sitter tree-sitter-
 }
 
 rm -rf vendor/*
@@ -60,5 +61,5 @@ checkout rust v0.15.1
 #checkout scala v0.13.0
 #checkout scala v0.15.0
 checkout typescript v0.15.1
-checkout_external xml master unhammer
+checkout_external xml master unhammer "tree-sitter-"
 
