@@ -618,7 +618,7 @@ public class CodeFoldingWindow : Gtk.Window {
        var ast_item = new ASTItem (start, start_offset, end, end_offset, type,
                                    false);
        //TODO Add a factory to customize by language
-       boolean valid = true;
+       bool valid = true;
        if (language_name == "xml") {
           ast_item.foldable = type == "element";
           valid = type != "text";
