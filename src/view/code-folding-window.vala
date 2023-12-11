@@ -763,6 +763,7 @@ public class CodeFoldingWindow : Gtk.Window {
                                              "Normal Text");
         item_first.toggled.connect (() => {
            source_buffer.set_language (null);
+           fill_model_by_strategy();
         });
 
         unowned SList<Gtk.RadioMenuItem> group = item_first.get_group ();
@@ -777,6 +778,7 @@ public class CodeFoldingWindow : Gtk.Window {
             submenu.add (item);
             item.toggled.connect (() => {
                 source_buffer.set_language (lang);
+                fill_model_by_strategy();
             });
 
             if (source_buffer.language != null
