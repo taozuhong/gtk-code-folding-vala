@@ -28,6 +28,8 @@ extern unowned TreeSitter.Language? get_language_php ();
 extern unowned TreeSitter.Language? get_language_html ();
 [CCode (cname = "tree_sitter_xml")]
 extern unowned TreeSitter.Language? get_language_xml ();
+[CCode (cname = "tree_sitter_typescript")]
+extern unowned TreeSitter.Language? get_language_typescript ();
 
 public class CodeFoldingWindow : Gtk.Window {
     private const string TITLE = "Source Code Editor";
@@ -541,6 +543,8 @@ public class CodeFoldingWindow : Gtk.Window {
           language = get_language_html ();
         } else if (language_name == "xml") {
           language = get_language_xml ();
+        } else if (language_name == "typescript") {
+          language = get_language_typescript ();
         } else {
            if (language_name != null) {
                print("Unknow %s language\n", language_name);
